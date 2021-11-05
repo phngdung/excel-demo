@@ -1,7 +1,4 @@
-package demo;
-
-import java.util.ArrayList;
-import java.util.List;
+package demo.entity;
 
 public class Boy {
     private Integer id;
@@ -86,27 +83,19 @@ public class Boy {
         this.skill = skill;
     }
 
-    public Boy(Integer id, String name, Integer age, String city, Integer height, Float weight, String hobbit, String hairColor, String skill ){
-        this.id= id;
-        this.name=name;
-        this.age=age;
-        this.city=city;
-        this.height=height;
-        this.weight=weight;
-        this.hobbit=hobbit;
-        this.hairColor=hairColor;
-        this.skill=skill;
+    public Boy(Integer id, String name, Integer age, String city, Integer height, Float weight, String hobbit, String hairColor, String skill) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.city = city;
+        this.height = height;
+        this.weight = weight;
+        this.hobbit = hobbit;
+        this.hairColor = hairColor;
+        this.skill = skill;
     }
-    public Boy(){
+
+    public Boy() {
     };
 
-    public List<Boy> getBoys() {
-        List<Boy> listBoy = new ArrayList<>();
-        Boy boy;
-        for (int i = 1; i <= 5; i++) {
-            boy =new Boy(i,"Dung" ,i,""+i,i, 1F,"Music","Black","none");
-            listBoy.add(boy);
-        }
-        return listBoy;
-    }
 }

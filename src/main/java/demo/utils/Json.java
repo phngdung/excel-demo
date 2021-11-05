@@ -1,21 +1,22 @@
-package demo;
+package demo.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import demo.entity.Boy;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.*;
-
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 public class Json {
-    Boy tmp = new Boy();
-    List<Boy> boyList = tmp.getBoys();
+    List<Boy> boyList = BoyUtils.makeData();
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -56,11 +57,11 @@ public class Json {
 
     public Boy parseObject(JSONObject jsonObject) {
 
-        Boy boy= new Boy();
+        Boy boy = new Boy();
         String json = jsonObject.toString();
         ObjectMapper mapper = new ObjectMapper();
         try {
-             boy = mapper.readValue(json, Boy.class);
+            boy = mapper.readValue(json, Boy.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,7 +69,7 @@ public class Json {
     }
 
     public List<Boy> parseFile() {
-        List<Boy> list= new ArrayList<>();
+        List<Boy> list = new ArrayList<>();
         JSONParser parser = new JSONParser();
         JSONArray arr;
         {
@@ -82,7 +83,7 @@ public class Json {
                 e.printStackTrace();
             }
         }
-        return  list;
+        return list;
     }
 
 
