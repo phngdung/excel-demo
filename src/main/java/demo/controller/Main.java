@@ -16,69 +16,23 @@ public class Main {
         {
             Scanner sc = new Scanner(System.in);
 
-            boolean exit = false;
-
             Excel excel = new Excel();
+            String[] titles= new String[0];
 
-            do {
-                System.out.println("1.Create Excel file");
-                System.out.println("2.Read Excel file");
-                System.out.println("3.Create Json File");
-                System.out.println("4.Write from json to excel file");
-                System.out.println("5.exit");
-                System.out.println("choose one!");
-                Scanner sd = new Scanner(System.in);
-                System.out.println("enter your choice");
-                int num = sd.nextInt();
-                switch (num) {
-                    case 1:
-                        System.out.println("1.Create Excel file");
-                        System.out.println("\n");
+            try {
+                titles = excel.getTittles("boy_management.xlsx");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-                        List<Boy> listBoy = BoyUtils.makeData();
-                        String[] titles = excel.getTittles("D:/Demo/test.xlsx");
-                        excel.writeData(titles, listBoy);
+            BoyUtils boyUtils =new BoyUtils();
+            List<Boy> data= boyUtils.makeData();
 
-                        break;
-
-                    case 2:
-                        System.out.println("2.Read Excel file");
-                        System.out.println("\n");
-
-                        excel.readData("D:/Demo/JavaBooks.xlsx");
-
-                        break;
-
-                    case 3:
-                        System.out.println("3.Create Json File");
-                        System.out.println("\n");
-
-//                        Json.writeJson();
-                        break;
-
-                    case 4:
-                        System.out.println("4.Write from json to excel file");
-                        System.out.println("//TODO");
-                        System.out.println("\n");
-
-//                        Json test = new Json();
-//                        List<Boy> boyList = test.parseFile();
-//                        for (int i = 0; i < boyList.size(); i++) {
-//                            Boy boy = boyList.get(i);
-//                            System.out.printf("%s %s", boy.getId(), boy.getName() + "\n");
-//                        }
-
-                        break;
-
-                    case 5:
-                        exit = true;
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + num);
-                }
-            } while (!exit);
-
-
+            try {
+                excel.writeData(titles,data);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

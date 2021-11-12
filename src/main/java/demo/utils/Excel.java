@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Excel {
 
-    public void writeData(String[] tittles, List<Boy> listBoy) {
+    public void writeData(String[] tittles, List<Boy> listBoy) throws Exception {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("Sheet1");
@@ -48,7 +48,7 @@ public class Excel {
         try (FileOutputStream outputStream = new FileOutputStream("boy_management.xlsx")) {
             workbook.write(outputStream);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -121,12 +121,14 @@ public class Excel {
 
     }
 
-    public String[] getTittles(String pathname) throws IOException {
-        File file = new File(pathname);
+    public String[] getTittles(String pathname) throws Exception {
+            File file = new File(pathname);
+
         FileInputStream input = null;
         try {
             input = new FileInputStream(file);
         } catch (FileNotFoundException e) {
+            System.out.print("File "+pathname +"not found");
             e.printStackTrace();
         }
         XSSFWorkbook workbook = new XSSFWorkbook(input);

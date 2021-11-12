@@ -20,7 +20,7 @@ public class Json {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public void writeJson() throws IOException {
+    public void writeJson(List<Boy> boyList) throws IOException {
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < boyList.size(); i++) {
             JSONObject boyDetails = new JSONObject();
@@ -45,12 +45,10 @@ public class Json {
         }
     }
 
-    public void objectToJson() throws IOException {
+    public void objectToJson(Boy boy) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File("boy.json");
         for (int i = 0; i < boyList.size(); i++) {
-            Boy boy = new Boy(i, "Dung", i, "" + i, i, 1F, "Music", "Black", "none");
-            System.out.print(boy);
             objectMapper.writeValue(file, boy);
         }
     }
