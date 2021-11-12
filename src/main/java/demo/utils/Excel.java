@@ -43,6 +43,14 @@ public class Excel {
             cell.setCellValue(boy.getAge());
             cell = row.createCell(colCount++);
             cell.setCellValue(boy.getCity());
+            cell = row.createCell(colCount++);
+            cell.setCellValue(boy.getHeight());
+            cell = row.createCell(colCount++);
+            cell.setCellValue(boy.getWeight());
+            cell = row.createCell(colCount++);
+            cell.setCellValue(boy.getHobbit());
+            cell = row.createCell(colCount++);
+            cell.setCellValue(boy.getHairColor());
         }
 
         try (FileOutputStream outputStream = new FileOutputStream("boy_management.xlsx")) {
@@ -105,7 +113,7 @@ public class Excel {
                         System.out.print("\t");
                         break;
                     case STRING:
-                        System.out.printf("%-10s", cell.getStringCellValue());
+                        System.out.printf("%-18s", cell.getStringCellValue());
                         System.out.print("\t");
                         break;
                     case ERROR:

@@ -16,9 +16,10 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class Json {
-    List<Boy> boyList = BoyUtils.makeData();
 
     Logger logger = Logger.getLogger(this.getClass().getName());
+
+    List<Boy> boyList = BoyUtils.makeData(10);
 
     public void writeJson(List<Boy> boyList) throws IOException {
         JSONArray jsonArray = new JSONArray();
