@@ -7,10 +7,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -21,7 +18,7 @@ public class Json {
 
     List<Boy> boyList = BoyUtils.makeData(10);
 
-    public void writeJson(List<Boy> boyList) throws IOException {
+    public void writeJson(String pathname, List<Boy> boyList) throws IOException {
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < boyList.size(); i++) {
             JSONObject boyDetails = new JSONObject();
@@ -38,17 +35,27 @@ public class Json {
             jsonArray.add(boyDetails);
         }
 
-        //Write JSON file
-        try (FileWriter file = new FileWriter("boy.json")) {
-            //We can write any JSONArray or JSONObject instance to the file
+        File existFile = new File(pathname);
+        FileWriter file = new FileWriter(pathname);
+
+        //Write new JSON file
+        if (existFile.exists()) {
             file.write(jsonArray.toJSONString());
             file.flush();
         }
+        //Append JSON file exists
+        else {
+            BufferedWriter bw = new BufferedWriter(file);
+            bw.write(jsonArray.toJSONString());
+            bw.newLine();
+            bw.close();
+        }
+
     }
 
-    public void objectToJson(Boy boy) throws IOException {
+    public void objectToJson(String pathname, Boy boy) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File("boy.json");
+        File file = new File(pathname);
         for (int i = 0; i < boyList.size(); i++) {
             objectMapper.writeValue(file, boy);
         }
@@ -67,13 +74,13 @@ public class Json {
         return boy;
     }
 
-    public List<Boy> parseFile() {
+    public List<Boy> parseFile(String pathname) {
         List<Boy> list = new ArrayList<>();
         JSONParser parser = new JSONParser();
         JSONArray arr;
         {
             try {
-                arr = (JSONArray) parser.parse(new FileReader("boy.json"));
+                arr = (JSONArray) parser.parse(new FileReader(pathname));
                 for (Object obj : arr) {
                     JSONObject person = (JSONObject) obj;
                     list.add(parseObject(person));

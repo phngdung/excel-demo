@@ -20,34 +20,37 @@ public class Main {
 
             Scanner sc = new Scanner(System.in);
             Excel excel = new Excel();
-            String[] titles= new String[0];
-            Json json= new Json();
+            String[] titles = new String[0];
+            Json json = new Json();
 
             /// write excel
-
+            BoyUtils boyUtils = new BoyUtils();
+            List<Boy> data = boyUtils.makeData(10);
             try {
-                titles = excel.getTittles("JavaBooks.xlsx");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            BoyUtils boyUtils =new BoyUtils();
-            List<Boy> data= boyUtils.makeData(10);
-
-            try {
-                excel.writeData(titles,data);
+                excel.writeData("boy_management.xlsx", "JavaBooks.xlsx", data);
                 logger.info("Write excel success");
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             // read excel
-
             excel.readData("boy_management.xlsx");
 
             //write json
-            json.writeJson(data);
+            json.writeJson("boy.json", data);
 
+            //read json to excel
+            List<Boy> parsedList = json.parseFile("boy.json");
+
+            System.out.print("\nParsing file.. \n");
+            System.out.print("Write excel... \n");
+            try {
+                excel.writeData("boy_management.xlsx", "JavaBooks.xlsx", parsedList);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+//            excel.readData("boy_management.xlsx");
+            //Format style
         }
     }
 }
